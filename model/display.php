@@ -33,7 +33,6 @@ for ($i=1; $i <= $size; $i++) {
 			$prime = $primes[0];
 			if ($prime > $number) {
 				$displayTable .= "\t\t<td>P, $number, $prime</td>\n";
-				print_r ($prime);
 			} else { 
 				$displayTable .= "\t\t<td>P, x, xxx</td>\n";
 				$tableResults .= "\t<li>Prime Number: $number does not exist, and needs to be generated</li>";

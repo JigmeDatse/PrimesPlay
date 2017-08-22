@@ -34,7 +34,7 @@ function getUnconfirmed($connection, $primenumber, $unknownnumber) {
 	$result=pg_query($connection, $sqlcommand);
 	$primeids=pg_fetch_row($result);
 	$primeid=pg_escape_literal($primeids[0]);
-	if ($result && $primeid) {
+	if ($result && $primeid && ($primeid!="''")) {
 		$sqlcommand = "SELECT unverifiedid FROM primesunverifiedkeys WHERE primeid=$primeid";
 		$result=pg_query($connection, $sqlcommand);
 		$unverifiedids = pg_fetch_all($result);
