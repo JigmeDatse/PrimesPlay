@@ -9,6 +9,8 @@ include "includes/header.html.php";
 
 	<?php echo $displayTable; ?>
 
+	<?php echo $tableResults; ?>
+
 <?php 
 
 include "includes/footer.html.php";

@@ -1,6 +1,7 @@
 <?php 
 
-include "model/index.php";
+require_once "model/index.php";
+require_once "model/database.php";
 
 switch ($action) {
 	case "display":

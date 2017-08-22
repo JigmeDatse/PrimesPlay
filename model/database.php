@@ -20,7 +20,40 @@ function createDatabaseTables($connection, $sqlfile) {
 	}
 }
 
-function getPrimes($primenumber) {
+function getPrime($connection, $primenumber) {
 	$sqlcommand = "SELECT primevalue FROM primes WHERE primenumber=$primenumber;";
-	// This needs to be dealt with... 
+	// This needs to be dealt with...
+	$result=pg_query($connection, $sqlcommand);
+	$therow=pg_fetch_row($result);
+	return($therow);
+}
 
+function getUnconfirmed($connection, $primenumber, $unknownnumber) {
+	// echo "this needs to be written";\
+	$sqlcommand = "SELECT primeid FROM primes WHERE primenumber=$primenumber";
+	$result=pg_query($connection, $sqlcommand);
+	$primeid=pg_fetch_row($result);
+	if ($result && $primeid) {
+		print_r ($primeid);
+		$sqlcommand = "SELECT unverifedid FROM primes WHERE primeid=$primeid";
+		$result=pg_query($connection, $sqlcommand);
+		$unverifedids = pg_fetch_all($result);
+
+	} else {
+		return(-1);
+	}
+	if ($result && $unverfiedids) {
+		$theunverifiedid = $unverifiedids[$unknownnumber];
+		$sqlcommand = "SELECT value FROM unverified WHERE unverifiedid=$theunverifiedid";
+		$result=pg_query($connection, $sqlcommand);
+		$thenumber=$pg_fetch_row($result);
+
+	} else {
+		return(-2);
+	}
+	if ($result && $thenumber) {
+		return($thenumber);
+	} else {
+		return(-3);
+	}
+}
