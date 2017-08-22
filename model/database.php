@@ -29,20 +29,19 @@ function getPrime($connection, $primenumber) {
 }
 
 function getUnconfirmed($connection, $primenumber, $unknownnumber) {
-	// echo "this needs to be written";\
+	$unverifiedids[]=0;
 	$sqlcommand = "SELECT primeid FROM primes WHERE primenumber=$primenumber";
 	$result=pg_query($connection, $sqlcommand);
-	$primeid=pg_fetch_row($result);
+	$primeids=pg_fetch_row($result);
+	$primeid=pg_escape_literal($primeids[0]);
 	if ($result && $primeid) {
-		print_r ($primeid);
-		$sqlcommand = "SELECT unverifedid FROM primes WHERE primeid=$primeid";
+		$sqlcommand = "SELECT unverifiedid FROM primesunverifiedkeys WHERE primeid=$primeid";
 		$result=pg_query($connection, $sqlcommand);
-		$unverifedids = pg_fetch_all($result);
-
+		$unverifiedids = pg_fetch_all($result);
 	} else {
 		return(-1);
 	}
-	if ($result && $unverfiedids) {
+	if ($result && $unverifiedids) {
 		$theunverifiedid = $unverifiedids[$unknownnumber];
 		$sqlcommand = "SELECT value FROM unverified WHERE unverifiedid=$theunverifiedid";
 		$result=pg_query($connection, $sqlcommand);

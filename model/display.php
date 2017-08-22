@@ -29,21 +29,23 @@ for ($i=1; $i <= $size; $i++) {
 	for ($j=1; $j <= $size; $j++) {
 		$number=$rowPart+$j;
 		if ($number <= $primenumber) {
-			$prime = getPrime($connection, $number);
+			$primes = getPrime($connection, $number);
+			$prime = $primes[0];
 			if ($prime > $number) {
-				$displayTable .= "\t\t<td>$number, $prime</td>\n";
+				$displayTable .= "\t\t<td>P, $number, $prime</td>\n";
+				print_r ($prime);
 			} else { 
-				$displayTable .= "\t\t<td>x, xxx</td>\n";
+				$displayTable .= "\t\t<td>P, x, xxx</td>\n";
 				$tableResults .= "\t<li>Prime Number: $number does not exist, and needs to be generated</li>";
 			}
 		} else {
 			$unconfirmednumber=$number-$primenumber;
 			$unconfirmed=getUnconfirmed($connection, $primenumber, $unconfirmednumber);
 			if ($unconfirmed > $unconfirmednumber) {
-				$displayTable .= "\t\t<td>U, $unconfirmed</td>\n";
+				$displayTable .= "\t\t<td>U, $unconfirmednumber, $unconfirmed</td>\n";
 			} else {
-				$displayTable .= "\t\t<td>x, xxx</td>\n";
-				$tableResults .= "\t<li>Unconfirmed number: $unconfirmednumber, for Prime Number: $primenumber does not exist, and needs to be generated</li>\n";
+				$displayTable .= "\t\t<td>U, x, xxx</td>\n";
+				$tableResults .= "\t<li>Unconfirmed number: $unconfirmednumber, for Prime Number: $primenumber does not exist, and needs to be <a href=\"index.php?action=generateunverifieds&primenumber=$primenumber&unverifiednumber=$unconfirmednumber\">generated</a></li>\n";
 			}
 		}
 	}
